@@ -1,6 +1,0 @@
-artifact_location: mlflow-artifacts:/191708011582126278
-creation_time: 1763456351355
-experiment_id: '191708011582126278'
-last_update_time: 1763456351355
-lifecycle_stage: active
-name: linreg_sweeps

@@ -1,60 +1,0 @@
-nohup: ignoring input
-Downloading artifacts:   0%|          | 0/5 [00:00<?, ?it/s]Downloading artifacts:  20%|##        | 1/5 [00:00<00:00, 1673.70it/s]Downloading artifacts:  40%|####      | 2/5 [00:02<00:03,  1.02s/it]  Downloading artifacts:  40%|####      | 2/5 [00:02<00:03,  1.02s/it]Downloading artifacts:  60%|######    | 3/5 [00:02<00:02,  1.02s/it]Downloading artifacts:  80%|########  | 4/5 [00:02<00:01,  1.02s/it]Downloading artifacts: 100%|##########| 5/5 [00:02<00:00,  1.02s/it]Downloading artifacts: 100%|##########| 5/5 [00:02<00:00,  2.43it/s]
-2025/11/14 06:51:35 INFO mlflow.models.flavor_backend_registry: Selected backend for flavor 'python_function'
-Downloading artifacts:   0%|          | 0/5 [00:00<?, ?it/s]Downloading artifacts:  20%|##        | 1/5 [00:00<00:00, 49.66it/s]Downloading artifacts:  40%|####      | 2/5 [00:00<00:00, 97.42it/s]Downloading artifacts:  60%|######    | 3/5 [00:00<00:00, 134.91it/s]Downloading artifacts:  80%|########  | 4/5 [00:00<00:00, 163.62it/s]Downloading artifacts: 100%|##########| 5/5 [00:00<00:00, 88.74it/s] Downloading artifacts: 100%|##########| 5/5 [00:00<00:00, 88.57it/s]
-2025/11/14 06:51:35 INFO mlflow.pyfunc.backend: === Running command 'uvicorn --host 127.0.0.1 --port 5901 --workers 1 mlflow.pyfunc.scoring_server.app:app'
-INFO:     Started server process [13084]
-INFO:     Waiting for application startup.
-INFO:     Application startup complete.
-INFO:     Uvicorn running on http://127.0.0.1:5901 (Press CTRL+C to quit)
-INFO:     127.0.0.1:55732 - "GET /invocations HTTP/1.1" 405 Method Not Allowed
-INFO:     127.0.0.1:55735 - "GET /invocations HTTP/1.1" 405 Method Not Allowed
-INFO:     127.0.0.1:55738 - "GET / HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:61585 - "POST /invocations HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50079 - "GET / HTTP/1.1" 404 Not Found
-forrtl: error (200): program aborting due to window-CLOSE event
-Image              PC                Routine            Line        Source             
-libifcoremd.dll    00007FFE9461DF54  Unknown               Unknown  Unknown
-KERNELBASE.dll     00007FFF3B63C24D  Unknown               Unknown  Unknown
-KERNEL32.DLL       00007FFF3C44E8D7  Unknown               Unknown  Unknown
-ntdll.dll          00007FFF3E1EC53C  Unknown               Unknown  Unknown
-Traceback (most recent call last):
-  File "<frozen runpy>", line 198, in _run_module_as_main
-  File "<frozen runpy>", line 88, in _run_code
-  File "C:\Users\moura\anaconda3\Scripts\mlflow.exe\__main__.py", line 7, in <module>
-    sys.exit(cli())
-             ~~~^^
-  File "C:\Users\moura\anaconda3\Lib\site-packages\click\core.py", line 1161, in __call__
-    return self.main(*args, **kwargs)
-           ~~~~~~~~~^^^^^^^^^^^^^^^^^
-  File "C:\Users\moura\anaconda3\Lib\site-packages\click\core.py", line 1082, in main
-    rv = self.invoke(ctx)
-  File "C:\Users\moura\anaconda3\Lib\site-packages\click\core.py", line 1697, in invoke
-    return _process_result(sub_ctx.command.invoke(sub_ctx))
-                           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
-  File "C:\Users\moura\anaconda3\Lib\site-packages\click\core.py", line 1697, in invoke
-    return _process_result(sub_ctx.command.invoke(sub_ctx))
-                           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
-  File "C:\Users\moura\anaconda3\Lib\site-packages\click\core.py", line 1443, in invoke
-    return ctx.invoke(self.callback, **ctx.params)
-           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\moura\anaconda3\Lib\site-packages\click\core.py", line 788, in invoke
-    return __callback(*args, **kwargs)
-  File "C:\Users\moura\anaconda3\Lib\site-packages\mlflow\models\cli.py", line 104, in serve
-    ).serve(
-      ~~~~~^
-        model_uri=model_uri, port=port, host=host, timeout=timeout, enable_mlserver=enable_mlserver
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    )
-    ^
-  File "C:\Users\moura\anaconda3\Lib\site-packages\mlflow\pyfunc\backend.py", line 322, in serve
-    raise Exception(
-        f"Command '{command}' returned non zero return code. Return code = {rc}"
-    )
-Exception: Command 'uvicorn --host 127.0.0.1 --port 5901 --workers 1 mlflow.pyfunc.scoring_server.app:app' returned non zero return code. Return code = 2
-forrtl: error (200): program aborting due to window-CLOSE event
-Image              PC                Routine            Line        Source             
-libifcoremd.dll    00007FFE9461DF54  Unknown               Unknown  Unknown
-KERNELBASE.dll     00007FFF3B63C24D  Unknown               Unknown  Unknown
-KERNEL32.DLL       00007FFF3C44E8D7  Unknown               Unknown  Unknown
-ntdll.dll          00007FFF3E1EC53C  Unknown               Unknown  Unknown

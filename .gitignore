@@ -1,0 +1,34 @@
+# MLflow artifacts
+mlruns/
+mlartifacts/
+
+# Data files
+data/
+
+# Media files
+media/
+
+# Logs
+*.log
+logs/
+log/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+.env
+.venv
+venv/
+ENV/
+
+# IDE files
+.vscode/
+.idea/
+
+# OS metadata
+.DS_Store
+Thumbs.db

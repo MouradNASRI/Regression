@@ -1,6 +1,0 @@
-artifact_location: mlflow-artifacts:/571422727553920153
-creation_time: 1763271489014
-experiment_id: '571422727553920153'
-last_update_time: 1763271489014
-lifecycle_stage: active
-name: bike_regression
