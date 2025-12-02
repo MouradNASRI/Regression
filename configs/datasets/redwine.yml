@@ -1,0 +1,30 @@
+name: wine
+target: quality
+
+datetime_col: null
+time_split: false          # no need for temporal split
+drop_cols: []              # keep all chemical features
+keep_categoricals: false   # all numeric, no OHE needed
+scale_numeric: true
+
+# No renaming needed, but you CAN simplify names:
+rename_cols:
+  "fixed acidity": fixed_acidity
+  "volatile acidity": volatile_acidity
+  "citric acid": citric_acid
+  "residual sugar": residual_sugar
+  "free sulfur dioxide": free_SO2
+  "total sulfur dioxide": total_SO2
+  "chlorides": chlorides
+  "density": density
+  "pH": pH
+  "sulphates": sulphates
+  "alcohol": alcohol
+  "quality": quality
+
+feature_engineering:
+  datetime: false
+  haversine: false
+  log_target: false
+
+spatial_cols: {}

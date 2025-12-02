@@ -1,0 +1,14 @@
+name: "omp_baseline"
+model: "omp"
+metric: "mse"
+mode: "min"
+strategy: "grid"
+
+base_model_params:
+  fit_intercept: true
+  precompute: "auto"
+
+params:
+  # You can choose either n_nonzero_coefs *or* tol, or both.
+  n_nonzero_coefs: [3, 5, 8]
+  # tol: [null, 1e-3, 1e-4]  # if you want, but keep them numeric if used

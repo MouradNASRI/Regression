@@ -1,0 +1,15 @@
+creation_timestamp: 1763109493830
+current_stage: None
+deployment_job_state: null
+description: ''
+last_updated_timestamp: 1763109493830
+model_id: m-363904a802b24538b6c17178f686522b
+name: linear_regression_bike
+run_id: fe37940fe8db499882b3ef929f9e98f5
+run_link: ''
+source: models:/m-363904a802b24538b6c17178f686522b
+status: READY
+status_message: null
+storage_location: mlflow-artifacts:/0/models/m-363904a802b24538b6c17178f686522b/artifacts
+user_id: null
+version: 2

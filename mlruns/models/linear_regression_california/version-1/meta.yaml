@@ -1,0 +1,15 @@
+creation_timestamp: 1763100346618
+current_stage: None
+deployment_job_state: null
+description: ''
+last_updated_timestamp: 1763100346618
+model_id: m-6fdaef0e81c747889f0394f36a2242a0
+name: linear_regression_california
+run_id: ddba655c310d490dbd7f3ff22827c677
+run_link: ''
+source: models:/m-6fdaef0e81c747889f0394f36a2242a0
+status: READY
+status_message: null
+storage_location: mlflow-artifacts:/0/models/m-6fdaef0e81c747889f0394f36a2242a0/artifacts
+user_id: null
+version: 1

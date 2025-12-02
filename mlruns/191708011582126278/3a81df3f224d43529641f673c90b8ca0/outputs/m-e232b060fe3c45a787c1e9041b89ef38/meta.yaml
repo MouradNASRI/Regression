@@ -1,0 +1,6 @@
+destination_id: m-e232b060fe3c45a787c1e9041b89ef38
+destination_type: MODEL_OUTPUT
+source_id: m-e232b060fe3c45a787c1e9041b89ef38
+source_type: RUN_OUTPUT
+step: 0
+tags: {}

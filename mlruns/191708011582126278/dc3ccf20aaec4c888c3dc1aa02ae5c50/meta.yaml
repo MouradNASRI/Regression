@@ -1,0 +1,14 @@
+artifact_uri: mlflow-artifacts:/191708011582126278/dc3ccf20aaec4c888c3dc1aa02ae5c50/artifacts
+end_time: 1764578329262
+entry_point_name: ''
+experiment_id: '191708011582126278'
+lifecycle_stage: active
+run_id: dc3ccf20aaec4c888c3dc1aa02ae5c50
+run_name: tree
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1764578318180
+status: 3
+tags: []
+user_id: moura

@@ -1,0 +1,40 @@
+model:
+  name: "ols_regression"
+  library: "sklearn"
+  type: "linear"
+  params:
+    # LinearRegression(**params)
+    fit_intercept: true
+    copy_X: true
+    n_jobs: -1          # only here, not for lasso/elasticnet/sgd
+    positive: false
+
+collinearity:
+  enabled: true
+  mode: "manual"
+
+  # OLS is very sensitive → aggressive cleanup.
+  pipeline: ["pearson", "vif"]
+
+  pearson:
+    abs_threshold: 0.95   # remove strongly correlated pairs
+
+  vif:
+    threshold: 10.0
+    max_iter: 10
+
+  svd:
+    action: "warn"
+    tiny_singular_value_threshold: 1e-6
+
+  condition_number:
+    threshold: 30.0
+
+preprocessing:
+  scale_numeric: true
+
+mlflow:
+  log_collinearity_diagnostics: true
+  log_vif_table: true
+  log_correlation_heatmap: false
+  log_svd_spectrum: false

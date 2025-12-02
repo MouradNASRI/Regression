@@ -1,0 +1,34 @@
+model:
+  name: "random_forest_regression"
+  library: "sklearn"
+  type: "rf"
+  params:
+    n_estimators: 200
+    criterion: "squared_error"   # or "friedman_mse" in some sklearn versions
+    max_depth: null              # None = fully grown trees
+    min_samples_split: 2
+    min_samples_leaf: 1
+    min_weight_fraction_leaf: 0.0
+    max_features: "auto"         # or "sqrt", "log2", or float
+    max_leaf_nodes: null
+    min_impurity_decrease: 0.0
+    bootstrap: true
+    oob_score: false
+    n_jobs: -1
+    random_state: 42
+    verbose: 0
+    warm_start: false
+    ccp_alpha: 0.0
+    max_samples: null
+
+collinearity:
+  enabled: false   # trees don't need collinearity reduction
+
+preprocessing:
+  scale_numeric: false
+
+mlflow:
+  log_collinearity_diagnostics: false
+  log_vif_table: false
+  log_correlation_heatmap: false
+  log_svd_spectrum: false

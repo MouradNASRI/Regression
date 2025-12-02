@@ -1,0 +1,13 @@
+name: housing
+target: MedHouseVal
+datetime_col: null
+time_split: false
+drop_cols: []
+keep_categoricals: false
+scale_numeric: true
+rename_cols: {}
+feature_engineering:
+  datetime: false
+  haversine: false
+  log_target: false
+spatial_cols: {}

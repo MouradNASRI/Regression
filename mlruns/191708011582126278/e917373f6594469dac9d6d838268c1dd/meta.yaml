@@ -1,0 +1,14 @@
+artifact_uri: mlflow-artifacts:/191708011582126278/e917373f6594469dac9d6d838268c1dd/artifacts
+end_time: 1764188414563
+entry_point_name: ''
+experiment_id: '191708011582126278'
+lifecycle_stage: active
+run_id: e917373f6594469dac9d6d838268c1dd
+run_name: lasso
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1764188405180
+status: 3
+tags: []
+user_id: moura

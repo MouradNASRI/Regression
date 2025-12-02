@@ -1,0 +1,14 @@
+artifact_uri: mlflow-artifacts:/0/d05d397e4cc546f19e24c8c01edf03f1/artifacts
+end_time: 1763101790928
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: d05d397e4cc546f19e24c8c01edf03f1
+run_name: respected-fox-346
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1763101773729
+status: 3
+tags: []
+user_id: moura

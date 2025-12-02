@@ -1,0 +1,17 @@
+name: "lasso_baseline"
+model: "lasso"
+metric: "mse"
+mode: "min"
+strategy: "grid"
+
+# Parameters that are always set for all trials
+base_model_params:
+  fit_intercept: true
+  max_iter: 10000
+  tol: 0.01
+  # ❌ no n_jobs here – Lasso does not support it
+
+# Parameters to sweep over
+params:
+  alpha: [0.001, 0.01, 0.1, 1.0, 10.0]
+  positive: [false, true]

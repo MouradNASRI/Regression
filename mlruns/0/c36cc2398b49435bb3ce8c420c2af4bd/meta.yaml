@@ -1,0 +1,14 @@
+artifact_uri: mlflow-artifacts:/0/c36cc2398b49435bb3ce8c420c2af4bd/artifacts
+end_time: 1763109538572
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: c36cc2398b49435bb3ce8c420c2af4bd
+run_name: luxuriant-mouse-880
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1763109529675
+status: 3
+tags: []
+user_id: moura

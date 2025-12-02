@@ -1,0 +1,32 @@
+model:
+  name: "decision_tree_regression"
+  library: "sklearn"
+  type: "tree"
+  params:
+    # DecisionTreeRegressor(**params)
+    criterion: "squared_error"     # or "friedman_mse","poisson" depending on sklearn version
+    splitter: "best"               # "best" or "random"
+    max_depth: null                # None = grow until all leaves are pure
+    min_samples_split: 2
+    min_samples_leaf: 1
+    min_weight_fraction_leaf: 0.0
+    max_features: null             # None = all features; can also be "sqrt","log2", or int/float
+    random_state: 42
+    max_leaf_nodes: null
+    min_impurity_decrease: 0.0
+    ccp_alpha: 0.0
+
+# Model-aware preprocessing
+preprocessing:
+  # Trees do not need scaling; override dataset default if needed.
+  scale_numeric: false
+
+# Collinearity: trees are robust → no reduction needed.
+collinearity:
+  enabled: false
+
+mlflow:
+  log_collinearity_diagnostics: false
+  log_vif_table: false
+  log_correlation_heatmap: false
+  log_svd_spectrum: false

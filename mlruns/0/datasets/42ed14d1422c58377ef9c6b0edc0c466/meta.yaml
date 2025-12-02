@@ -1,0 +1,14 @@
+digest: b6173fc9
+name: dataset
+profile: '{"num_rows": 183, "num_elements": 2013}'
+schema: '{"mlflow_colspec": [{"type": "long", "name": "season", "required": true},
+  {"type": "long", "name": "yr", "required": true}, {"type": "long", "name": "mnth",
+  "required": true}, {"type": "long", "name": "holiday", "required": true}, {"type":
+  "long", "name": "weekday", "required": true}, {"type": "long", "name": "workingday",
+  "required": true}, {"type": "long", "name": "weathersit", "required": true}, {"type":
+  "double", "name": "temp", "required": true}, {"type": "double", "name": "atemp",
+  "required": true}, {"type": "double", "name": "hum", "required": true}, {"type":
+  "double", "name": "windspeed", "required": true}]}'
+source: '{"tags": {"mlflow.user": "moura", "mlflow.source.name": "./src/main.py",
+  "mlflow.source.type": "LOCAL", "mlflow.source.git.commit": "00a812a3a60911219257c4b0ac638c0e28e2772b"}}'
+source_type: code

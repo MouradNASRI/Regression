@@ -1,0 +1,17 @@
+name: bike
+target: cnt
+datetime_col: dteday
+time_split: true
+drop_cols:
+  - casual
+  - registered
+  - instant
+  - dteday
+keep_categoricals: false
+scale_numeric: true
+rename_cols: {}
+feature_engineering:
+  datetime: false
+  haversine: false
+  log_target: false
+spatial_cols: {}

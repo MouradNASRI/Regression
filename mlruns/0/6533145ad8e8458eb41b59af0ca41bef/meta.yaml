@@ -1,0 +1,14 @@
+artifact_uri: mlflow-artifacts:/0/6533145ad8e8458eb41b59af0ca41bef/artifacts
+end_time: 1763109433873
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 6533145ad8e8458eb41b59af0ca41bef
+run_name: blushing-goose-397
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1763109433035
+status: 3
+tags: []
+user_id: moura

@@ -1,0 +1,14 @@
+artifact_uri: mlflow-artifacts:/0/ec6bf743ed5a4314b74d29591e8784e9/artifacts
+end_time: 1763100393770
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: ec6bf743ed5a4314b74d29591e8784e9
+run_name: victorious-snake-242
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1763100372446
+status: 3
+tags: []
+user_id: moura

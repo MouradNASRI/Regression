@@ -1,0 +1,15 @@
+name: "ridge_baseline"
+model: "ridge"
+metric: "mse"
+mode: "min"
+strategy: "grid"
+
+# Parameters always set for all trials
+base_model_params:
+  fit_intercept: true
+  # you *can* add solver, tol, etc if you want
+
+# Parameters to sweep over
+params:
+  alpha: [0.01, 0.1, 1.0, 10.0, 100.0]
+  positive: [false, true]

@@ -1,0 +1,14 @@
+artifact_uri: mlflow-artifacts:/191708011582126278/dee99901e016474ebd7c5baa13060764/artifacts
+end_time: 1764357541376
+entry_point_name: ''
+experiment_id: '191708011582126278'
+lifecycle_stage: active
+run_id: dee99901e016474ebd7c5baa13060764
+run_name: elasticnet
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1764357534386
+status: 3
+tags: []
+user_id: moura

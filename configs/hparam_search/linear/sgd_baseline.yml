@@ -1,0 +1,19 @@
+name: "sgd_baseline"
+model: "sgd"
+metric: "mse"
+mode: "min"
+strategy: "grid"
+
+base_model_params:
+  loss: "squared_error"
+  penalty: "elasticnet"
+  fit_intercept: true
+  max_iter: 1000
+  tol: 0.001
+  random_state: 42
+
+params:
+  alpha: [0.0001, 0.001, 0.01]
+  l1_ratio: [0.1, 0.5, 0.9]
+  learning_rate: ["invscaling", "constant"]
+  eta0: [0.001, 0.01]

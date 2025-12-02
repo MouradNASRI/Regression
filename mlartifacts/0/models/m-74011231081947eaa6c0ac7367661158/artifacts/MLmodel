@@ -1,0 +1,35 @@
+artifact_path: mlflow-artifacts:/0/models/m-74011231081947eaa6c0ac7367661158/artifacts
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.13.5
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.6.1
+is_signature_from_type_hint: false
+mlflow_version: 3.6.0
+model_id: m-74011231081947eaa6c0ac7367661158
+model_size_bytes: 767
+model_uuid: m-74011231081947eaa6c0ac7367661158
+prompts: null
+run_id: 031aaf509d2447e2a182d2659c246902
+signature:
+  inputs: '[{"type": "long", "name": "season", "required": true}, {"type": "long",
+    "name": "yr", "required": true}, {"type": "long", "name": "mnth", "required":
+    true}, {"type": "long", "name": "holiday", "required": true}, {"type": "long",
+    "name": "weekday", "required": true}, {"type": "long", "name": "workingday", "required":
+    true}, {"type": "long", "name": "weathersit", "required": true}, {"type": "double",
+    "name": "temp", "required": true}, {"type": "double", "name": "atemp", "required":
+    true}, {"type": "double", "name": "hum", "required": true}, {"type": "double",
+    "name": "windspeed", "required": true}]'
+  outputs: '[{"type": "tensor", "tensor-spec": {"dtype": "float64", "shape": [-1]}}]'
+  params: null
+type_hint_from_example: false
+utc_time_created: '2025-11-14 08:39:38.863185'

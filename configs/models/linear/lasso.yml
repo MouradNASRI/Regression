@@ -1,0 +1,45 @@
+model:
+  name: "lasso_regression"
+  library: "sklearn"
+  type: "lasso"
+  params:
+    # Lasso(**params)
+    alpha: 1.0
+    fit_intercept: true
+    max_iter: 10000
+    tol: 0.0001
+    warm_start: false
+    positive: false
+    random_state: null
+    selection: "cyclic"   # "cyclic" or "random"
+
+collinearity:
+  enabled: true
+  mode: "manual"
+
+  # Lasso does feature selection → only remove near-duplicates.
+  pipeline: ["pearson"]
+
+  pearson:
+    abs_threshold: 0.99
+
+  vif:
+    threshold: 10.0
+    max_iter: 10
+
+  svd:
+    action: "warn"
+    tiny_singular_value_threshold: 1e-6
+
+
+  condition_number:
+    threshold: 30.0
+
+preprocessing:
+  scale_numeric: true
+
+mlflow:
+  log_collinearity_diagnostics: true
+  log_vif_table: true
+  log_correlation_heatmap: false
+  log_svd_spectrum: false

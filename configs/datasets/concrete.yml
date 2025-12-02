@@ -1,0 +1,27 @@
+name: concrete
+
+# Canonical target name *after* renaming
+target: Strength
+
+datetime_col: null
+time_split: false
+drop_cols: []
+keep_categoricals: false
+scale_numeric: true
+
+rename_cols:
+  "Cement (component 1)(kg in a m^3 mixture)": Cement
+  "Blast Furnace Slag (component 2)(kg in a m^3 mixture)": Slag
+  "Fly Ash (component 3)(kg in a m^3 mixture)": FlyAsh
+  "Water  (component 4)(kg in a m^3 mixture)": Water
+  "Superplasticizer (component 5)(kg in a m^3 mixture)": Plasticizer
+  "Coarse Aggregate  (component 6)(kg in a m^3 mixture)": CoarseAgg
+  "Fine Aggregate (component 7)(kg in a m^3 mixture)": FineAgg
+  "Age (day)": Age
+  "Concrete compressive strength(MPa, megapascals) ": Strength
+
+feature_engineering:
+  datetime: false
+  haversine: false
+  log_target: false
+spatial_cols: {}

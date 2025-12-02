@@ -1,0 +1,19 @@
+name: "lassolars_baseline"
+model: "lassolars"
+metric: "mse"
+mode: "min"
+strategy: "grid"
+
+base_model_params:
+  fit_intercept: true
+  precompute: "auto"
+  max_iter: 500
+  copy_X: true
+  fit_path: true
+  random_state: 42
+  positive: false
+
+params:
+  alpha: [0.001, 0.01, 0.1, 1.0]
+  # you can also sweep positive if you want:
+  # positive: [false, true]

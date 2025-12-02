@@ -1,0 +1,14 @@
+artifact_uri: mlflow-artifacts:/0/1c5625cd546046399b330d655976015f/artifacts
+end_time: 1763098962692
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 1c5625cd546046399b330d655976015f
+run_name: adventurous-mare-150
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1763098947596
+status: 3
+tags: []
+user_id: moura

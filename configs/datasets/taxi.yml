@@ -1,0 +1,21 @@
+name: taxi
+target: trip_duration
+datetime_col: pickup_datetime
+time_split: false          # random split, not time-based (for now)
+drop_cols:
+  - id
+  - dropoff_datetime
+keep_categoricals: false   # let your pipeline OHE them
+scale_numeric: true
+
+feature_engineering:
+  datetime: true           # extract hour/dow/month from pickup_datetime
+  haversine: true          # compute distance_km from lat/lon
+  log_target: true         # model log(trip_duration+1) instead of raw
+
+spatial_cols:
+  pickup_lat: pickup_latitude
+  pickup_lon: pickup_longitude
+  dropoff_lat: dropoff_latitude
+  dropoff_lon: dropoff_longitude
+rename_cols: {}
