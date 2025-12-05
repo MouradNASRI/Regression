@@ -1,0 +1,44 @@
+model:
+  name: "huber_regression"
+  library: "sklearn"
+  type: "huber"
+  params:
+    # HuberRegressor(**params)
+    epsilon: 1.35          # controls where quadratic → linear loss
+    alpha: 0.0001          # L2 regularization strength
+    fit_intercept: true
+    max_iter: 100          # default, can be increased if needed
+    tol: 0.00001
+    warm_start: false
+
+preprocessing:
+  # Linear model with gradient-based optimization → scale features
+  scale_numeric: true
+
+collinearity:
+  enabled: true
+  mode: "manual"
+
+  # Huber + L2 is reasonably robust to collinearity.
+  # We keep only a very gentle Pearson pass to remove near-duplicates.
+  pipeline: ["pearson"]
+
+  pearson:
+    abs_threshold: 0.99
+
+  vif:
+    threshold: 10.0
+    max_iter: 10
+
+  svd:
+    action: "warn"
+    tiny_singular_value_threshold: 1e-6
+
+  condition_number:
+    threshold: 30.0
+
+mlflow:
+  log_collinearity_diagnostics: true
+  log_vif_table: true
+  log_correlation_heatmap: false
+  log_svd_spectrum: false

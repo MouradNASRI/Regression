@@ -8,11 +8,28 @@ import yaml
 from typing import Any, Dict, Iterable, Optional
 from itertools import product
 from .training_utils import train_eval_log
+import math
 
 from src.model_registry import get_model_group
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
+def count_param_combinations(param_grid: Dict[str, list[Any]]) -> int:
+    """
+    Return the total number of parameter combinations in a grid search.
+
+    Example:
+      param_grid = {
+        "max_depth": [None, 5, 10],
+        "min_samples_leaf": [1, 2]
+      }
+      -> 3 * 2 = 6 combinations
+    """
+    if not param_grid:
+        return 1
+
+    lengths = [len(v) for v in param_grid.values()]
+    return math.prod(lengths)
 
 def load_hparam_search_config(
     name: str,
@@ -203,6 +220,9 @@ def run_hparam_search(
     best_trial: Dict[str, Any] | None = None
     num_trials = 0
 
+    total_trials = count_param_combinations(search_space)
+    print(f"\n[{search_name}] Will run {total_trials} experiment(s) for model '{model_name}'.\n")
+
     for trial_idx, hp_update in enumerate(_generate_grid(search_space)):
         num_trials += 1
 
@@ -210,6 +230,14 @@ def run_hparam_search(
         # - base_model_params: config + CLI (fixed)
         # - hp_update: only params that are allowed to be tuned
         trial_params = {**base_model_params, **hp_update}
+        
+        # Print experiment progress
+        print(
+            f"[{search_name}] Experiment {trial_idx} / {total_trials} "
+            f"→ params = {trial_params}"
+        )
+
+        
 
         trial_result = train_eval_log(
             model_name=model_name,

@@ -1,0 +1,50 @@
+model:
+  name: "ransac_regression"
+  library: "sklearn"
+  type: "ransac"
+  params:
+    # RANSACRegressor(**params)
+    estimator: null            # None → default LinearRegression()
+    min_samples: null          # int, float in (0,1], or None for heuristic
+    residual_threshold: null   # float or None (automatically estimated)
+    is_data_valid: null        # callable or None
+    is_model_valid: null       # callable or None
+    max_trials: 100
+    max_skips: 1000
+    stop_n_inliers: null
+    stop_score: null
+    stop_probability: 0.99
+    loss: "absolute_loss"      # "absolute_loss" or "squared_loss"
+    random_state: 42
+
+preprocessing:
+  # Underlying estimator is linear → scale numeric features
+  scale_numeric: true
+
+collinearity:
+  enabled: true
+  mode: "manual"
+
+  # RANSAC addresses *outliers*, not multicollinearity.
+  # We keep only a very gentle Pearson pass to drop near-duplicates.
+  pipeline: ["pearson"]
+
+  pearson:
+    abs_threshold: 0.99
+
+  vif:
+    threshold: 10.0
+    max_iter: 10
+
+  svd:
+    action: "warn"
+    tiny_singular_value_threshold: 1e-6
+
+  condition_number:
+    threshold: 30.0
+
+mlflow:
+  log_collinearity_diagnostics: true
+  log_vif_table: true
+  log_correlation_heatmap: false
+  log_svd_spectrum: false

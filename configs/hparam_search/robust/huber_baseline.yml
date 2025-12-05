@@ -1,0 +1,16 @@
+name: "huber_baseline"
+model: "huber"
+metric: "mse"
+mode: "min"
+strategy: "grid"
+
+base_model_params:
+  max_iter: 100
+  tol: 0.00001
+  warm_start: false
+
+params:
+  epsilon: [1.2, 1.35, 1.5]
+  alpha: [0.0001, 0.001, 0.01]
+  fit_intercept: [true, false]
+ 
