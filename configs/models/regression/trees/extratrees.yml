@@ -1,0 +1,38 @@
+model:
+  name: "extra_trees_regression"
+  library: "sklearn"
+  type: "extratrees"
+  task: "regression" 
+  params:
+    # ExtraTreesRegressor(**params)
+    n_estimators: 200
+    criterion: "squared_error"     # or "friedman_mse" in some versions
+    max_depth: null                # None = fully grown trees
+    min_samples_split: 2
+    min_samples_leaf: 1
+    min_weight_fraction_leaf: 0.0
+    max_features: "sqrt"           # common default for ExtraTrees
+    max_leaf_nodes: null
+    min_impurity_decrease: 0.0
+    bootstrap: false               # usually False for ExtraTrees
+    oob_score: false
+    n_jobs: -1
+    random_state: 42
+    verbose: 0
+    warm_start: false
+    ccp_alpha: 0.0
+    max_samples: null              # only used if bootstrap=True
+
+preprocessing:
+  # Tree ensembles don't need scaling
+  scale_numeric: false
+
+collinearity:
+  # ExtraTrees are robust to collinearity → no reduction
+  enabled: false
+
+mlflow:
+  log_collinearity_diagnostics: false
+  log_vif_table: false
+  log_correlation_heatmap: false
+  log_svd_spectrum: false

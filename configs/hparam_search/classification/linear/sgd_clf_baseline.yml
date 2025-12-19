@@ -1,0 +1,31 @@
+name: "sgd_clf_baseline"
+model: "sgd_clf"
+metric: "accuracy"
+mode: "max"
+strategy: "grid"
+
+base_model_params:
+  max_iter: 1000
+  tol: 0.001
+  shuffle: true
+  random_state: 42
+
+params:
+  loss:
+    - "log_loss"      # logistic regression
+    - "hinge"         # linear SVM
+    - "modified_huber"
+  penalty:
+    - "l2"
+    - "l1"
+    - "elasticnet"
+  alpha:
+    - 0.00001
+    - 0.0001
+    - 0.001
+  fit_intercept:
+    - true
+    - false
+  average:
+    - false
+    - true

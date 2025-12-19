@@ -1,0 +1,11 @@
+name: "isotonic_baseline"
+model: "isotonic"
+metric: "mse"
+mode: "min"
+strategy: "grid"
+
+base_model_params: {}
+
+params:
+  increasing: [true, false]
+  out_of_bounds: ["clip", "nan"]

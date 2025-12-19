@@ -1,0 +1,15 @@
+name: "linear_baseline"
+model: "linear"
+metric: "accuracy"
+mode: "max"
+strategy: "grid"
+
+base_model_params:
+  solver: "lbfgs"
+  max_iter: 1000
+  random_state: 42
+
+params:
+  C: [0.01, 0.1, 1.0, 10.0]
+  fit_intercept: [true, false]
+  class_weight: [null, "balanced"]

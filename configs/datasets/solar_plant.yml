@@ -1,0 +1,24 @@
+name: "solar_plant"
+
+target: "AC_POWER"
+
+drop_cols:
+  - "PLANT_ID"
+  - "SOURCE_KEY"
+  - "TOTAL_YIELD"
+  - "DATE_TIME"
+
+keep_categoricals: false
+scale_numeric: false
+
+feature_engineering:
+  datetime: false
+  spatial: false
+  target_transform: null
+
+spatial_cols: null
+rename_cols: {}
+
+special:
+  isotonic:
+    input_feature: "DC_POWER"

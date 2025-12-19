@@ -42,16 +42,17 @@ def main() -> None:
     #load and parse the CLI arguments
     parser = build_parser()
     args = parser.parse_args()
-    
+    task = args.task 
+
+    if args.list_models:
+       list_available_models(task=task)   
+
     # Load mlflow config file and init mlflow cfg from configs/mlflow/<profile>.yml
     mlflow_cfg = load_and_init_mlflow(args.mlflow_profile, 
                                       cli_experiment=args.experiment)
 
     #Load dataset cconfig from config/datasets/<name>.yaml
     dataset_cfg = load_dataset_config(args.dataset)
-
-    if args.list_models:
-        list_available_models()
 
     # -------------------------------------------------------------------------
     # 4) Load model config from configs/models/<model>.yaml
@@ -60,8 +61,14 @@ def main() -> None:
     #   - model: name, library, type, params
     #   - collinearity: enabled/mode/pipeline/pearson/vif/svd/condition_number
     #   - (optionally) mlflow settings specific to the model
-    model_cfg: Dict[str, Any] = load_model_config(args.model)
+    model_cfg: Dict[str, Any] = load_model_config(task, args.model)
 
+    task = (
+        args.task
+        or model_cfg.get("model", {}).get("task")
+        or dataset_cfg.get("task")
+        or "regression"
+    )
         #  Decide whether to scale numeric features
     dataset_scale_default = dataset_cfg.get("scale_numeric", True)
     model_pre_cfg = model_cfg.get("preprocessing", {})
@@ -72,7 +79,18 @@ def main() -> None:
     else:
         # Fall back to dataset’s default behaviour
         scale_numeric = dataset_scale_default
+    # Decide which column is the target
+    cli_target   = args.target
+    model_target = model_cfg.get("model", {}).get("target")
+    ds_target    = dataset_cfg.get("target")
 
+    effective_target = cli_target or model_target or ds_target
+
+    if effective_target is None:
+        raise ValueError(
+            "No target column specified. Provide one via CLI (--target), "
+            "model config (model.target), or dataset config (target)."
+        )
 
     
 
@@ -87,7 +105,7 @@ def main() -> None:
     #   - X_train_df, X_test_df : raw DataFrames (unused here but kept)
     X_train, X_test, y_train, y_test, pre, feat_names, X_train_df, X_test_df = load_data(
         path=args.data,
-        target=dataset_cfg["target"],
+        target=effective_target,
         test_size=args.test_train_ratio,
         random_state=42,
         drop_cols=dataset_cfg.get("drop_cols", []),
@@ -155,7 +173,7 @@ def main() -> None:
     # 8) Either run hyperparameter search or a single training run
     # -------------------------------------------------------------------------
     if args.hparam_search:
-        search_cfg = load_hparam_search_config(name = args.hparam_search, model_name=args.model,)
+        search_cfg = load_hparam_search_config(task = task, name = args.hparam_search, model_name=args.model,)
         cli_model_name=args.model
         mlflow_experiment=args.experiment
 
@@ -169,6 +187,7 @@ def main() -> None:
             cli_model_params=cli_model_params,
             cli_model_name=cli_model_name,
             mlflow_experiment=mlflow_experiment,
+            task=task,
         )
 
         print(
@@ -190,8 +209,9 @@ def main() -> None:
             y_test=y_test,
             pre=pre,
             mlflow_experiment=mlflow_experiment,
-            col_manager=col_manager,          # NEW
-            model_mlflow_cfg=model_mlflow_cfg # NEW
+            col_manager=col_manager,          
+            model_mlflow_cfg=model_mlflow_cfg,
+            task=task
         )
 
 if __name__ == "__main__":

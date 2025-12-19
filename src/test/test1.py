@@ -1,0 +1,2 @@
+from src.stats.glm_checks import check_gamma_glm_suitability
+check_gamma_glm_suitability(y_train)

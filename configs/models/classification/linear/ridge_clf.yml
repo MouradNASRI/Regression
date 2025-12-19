@@ -1,0 +1,30 @@
+model:
+  name: "ridge_classifier"
+  library: "sklearn"
+  type: "ridge"        # must match your registry key / CLI: --model ridge
+  params:
+    # RidgeClassifier(**params)
+    alpha: 1.0
+    fit_intercept: true
+    copy_X: true
+    tol: 0.001
+    class_weight: null   # set to "balanced" if needed
+    random_state: 42
+
+preprocessing:
+  # Ridge / linear margin models benefit from scaling
+  scale_numeric: true
+
+collinearity:
+  enabled: true
+  mode: "manual"
+  pipeline: ["pearson"]
+
+  pearson:
+    abs_threshold: 0.99
+
+mlflow:
+  log_collinearity_diagnostics: true
+  log_vif_table: false
+  log_correlation_heatmap: false
+  log_svd_spectrum: false

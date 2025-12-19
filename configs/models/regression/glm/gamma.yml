@@ -1,0 +1,42 @@
+model:
+  name: "gamma_glm"
+  library: "sklearn"
+  type: "gamma"
+  task: "regression" 
+  params:
+    # GammaRegressor(**params)
+    alpha: 0.0             # L2 regularization (0 → no regularization)
+    max_iter: 1000
+    tol: 0.0001
+    warm_start: false
+    verbose: 0
+    fit_intercept: true
+
+preprocessing:
+  # Gamma needs positive values but scaling is still recommended
+  scale_numeric: true
+
+collinearity:
+  enabled: true
+  mode: "manual"
+  pipeline: ["pearson"]  # Gamma is fairly robust, so light cleaning
+
+  pearson:
+    abs_threshold: 0.98
+
+  vif:
+    threshold: 10.0
+    max_iter: 10
+
+  svd:
+    action: "warn"
+    tiny_singular_value_threshold: 1e-6
+
+  condition_number:
+    threshold: 50.0
+
+mlflow:
+  log_collinearity_diagnostics: true
+  log_vif_table: true
+  log_correlation_heatmap: false
+  log_svd_spectrum: false

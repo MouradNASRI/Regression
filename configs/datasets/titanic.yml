@@ -1,0 +1,31 @@
+name: "titanic"
+
+# Default target (can still be overridden via CLI)
+target: "Survived"
+
+# No time ordering
+time_split: false
+datetime_col: null
+
+# Columns to drop (IDs, free text, high cardinality)
+drop_cols:
+  - "PassengerId"
+  - "Name"
+  - "Ticket"
+  - "Cabin"
+
+# Keep categoricals for OneHotEncoder
+keep_categoricals: true
+
+# Logistic regression benefits from scaling
+scale_numeric: true
+
+feature_engineering:
+  datetime: false
+  spatial: false
+  target_transform: null
+
+spatial_cols: null
+
+# Optional column renaming (not required here)
+rename_cols: {}

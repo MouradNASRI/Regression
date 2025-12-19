@@ -1,0 +1,40 @@
+model:
+  name: "gradient_boosting_regression"
+  library: "sklearn"
+  type: "gboost"
+  task: "regression" 
+  params:
+    # GradientBoostingRegressor(**params)
+    loss: "squared_error"     # main one for regression
+    learning_rate: 0.1
+    n_estimators: 100
+    subsample: 1.0            # <1.0 → stochastic gradient boosting
+    criterion: "friedman_mse" # or "squared_error" in some versions
+    min_samples_split: 2
+    min_samples_leaf: 1
+    min_weight_fraction_leaf: 0.0
+    max_depth: 3
+    min_impurity_decrease: 0.0
+    init: null
+    random_state: 42
+    max_features: null        # "sqrt","log2", float, int, or None
+    alpha: 0.9                # for quantile / huber losses
+    verbose: 0
+    max_leaf_nodes: null
+    warm_start: false
+    validation_fraction: 0.1
+    n_iter_no_change: null
+    tol: 0.0001
+    ccp_alpha: 0.0
+
+preprocessing:
+  scale_numeric: false        # tree-ensemble → no need to scale
+
+collinearity:
+  enabled: false              # GB trees robust to collinearity
+
+mlflow:
+  log_collinearity_diagnostics: false
+  log_vif_table: false
+  log_correlation_heatmap: false
+  log_svd_spectrum: false

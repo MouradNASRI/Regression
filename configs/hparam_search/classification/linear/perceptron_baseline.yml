@@ -1,0 +1,16 @@
+name: "perceptron_baseline"
+model: "perceptron"
+metric: "accuracy"
+mode: "max"
+strategy: "grid"
+
+base_model_params:
+  max_iter: 1000
+  tol: 0.001
+  shuffle: true
+  random_state: 42
+
+params:
+  penalty: [null, "l2", "l1"]
+  alpha: [0.0001, 0.001, 0.01]
+  fit_intercept: [true, false]

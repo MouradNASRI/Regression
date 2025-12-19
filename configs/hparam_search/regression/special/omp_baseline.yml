@@ -1,0 +1,13 @@
+name: "omp_baseline"
+model: "omp"
+metric: "mse"
+mode: "min"
+strategy: "grid"
+
+base_model_params:
+  n_nonzero_coefs: null
+  precompute: "auto"
+
+params:
+  tol: [0.001, 0.0001, 0.00001]
+  fit_intercept: [true, false]

@@ -1,0 +1,47 @@
+model:
+  name: "lassolars_regression"
+  library: "sklearn"
+  type: "lassolars"
+  task: "regression" 
+  params:
+    # LassoLars(**params)
+    alpha: 1.0
+    fit_intercept: true
+    verbose: false
+    precompute: "auto"     # True, False, "auto"
+    max_iter: 500
+    eps: 2.220446049250313e-16
+    # normalize: DEPRECATED in recent versions
+    positive: false
+    jitter: null
+    random_state: null
+
+collinearity:
+  enabled: true
+  mode: "manual"
+
+  # L1-style path method → only light Pearson.
+  pipeline: ["pearson"]
+
+  pearson:
+    abs_threshold: 0.99
+
+  vif:
+    threshold: 10.0
+    max_iter: 10
+
+  svd:
+    action: "warn"
+    tiny_singular_value_threshold: 1e-6
+
+  condition_number:
+    threshold: 30.0
+
+preprocessing:
+  scale_numeric: true
+
+mlflow:
+  log_collinearity_diagnostics: true
+  log_vif_table: true
+  log_correlation_heatmap: false
+  log_svd_spectrum: false

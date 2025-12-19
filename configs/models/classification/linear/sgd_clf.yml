@@ -1,0 +1,42 @@
+model:
+  name: "sgd_classifier"
+  library: "sklearn"
+  type: "sgd_clf"      # must match registry key / CLI: --model sgd_clf
+  params:
+    # SGDClassifier(**params)
+    loss: "log_loss"        # log_loss = logistic regression
+    penalty: "l2"
+    alpha: 0.0001
+    l1_ratio: 0.15
+    fit_intercept: true
+    max_iter: 1000
+    tol: 0.001
+    shuffle: true
+    learning_rate: "optimal"
+    eta0: 0.0              # only used for constant / invscaling
+    power_t: 0.5
+    early_stopping: false
+    validation_fraction: 0.1
+    n_iter_no_change: 5
+    class_weight: null
+    random_state: 42
+    warm_start: false
+    average: false
+
+preprocessing:
+  # SGD is extremely scale-sensitive
+  scale_numeric: true
+
+collinearity:
+  enabled: true
+  mode: "manual"
+  pipeline: ["pearson"]
+
+  pearson:
+    abs_threshold: 0.99
+
+mlflow:
+  log_collinearity_diagnostics: true
+  log_vif_table: false
+  log_correlation_heatmap: false
+  log_svd_spectrum: false

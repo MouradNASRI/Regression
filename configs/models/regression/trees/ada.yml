@@ -1,0 +1,26 @@
+model:
+  name: "adaboost_regression"
+  library: "sklearn"
+  type: "ada"
+  task: "regression" 
+  params:
+    # AdaBoostRegressor(**params)
+    estimator: null            # None → default DecisionTreeRegressor(max_depth=3)
+    n_estimators: 100
+    learning_rate: 0.1
+    loss: "linear"             # "linear", "square", "exponential"
+    random_state: 42
+
+preprocessing:
+  # Trees / tree-based ensembles don't need scaling
+  scale_numeric: false
+
+collinearity:
+  # AdaBoost with trees is robust to collinearity → no reduction
+  enabled: false
+
+mlflow:
+  log_collinearity_diagnostics: false
+  log_vif_table: false
+  log_correlation_heatmap: false
+  log_svd_spectrum: false

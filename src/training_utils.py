@@ -1,9 +1,10 @@
 # src/training_utils.py
 
 from typing import Dict, Any
-from sklearn.metrics import mean_squared_error, r2_score
-from src.model_registry import get_model
+from sklearn.base import BaseEstimator
+from src.model_registry import get_model as get_task_model
 from src.mlflow_utils import log_with_mlflow
+from src.tasks.registry import get_task_evaluator
 
 
 def train_eval_log(
@@ -17,24 +18,28 @@ def train_eval_log(
     mlflow_experiment: str | None = None,
     col_manager=None,
     model_mlflow_cfg: dict | None = None,
+    task: str = "regression",
 ) -> Dict[str, Any]:
     """
-    Generic training routine for sklearn-compatible regression models.
+    Generic training routine for sklearn-compatible models.
     Performs:
       - model construction (via registry)
       - fit() on train data
       - predict() on test data
       - MSE + R² evaluation
       - MLflow logging (with optional preprocessor pipeline)
+      - task : str
+        The type of ML task (e.g. "regression", "classification").
+        This controls which metrics are computed.
 
     Returns:
-      (mse, r2)
+      metrics: Dict[str, float]
     """
 
     # ------------------------------------------------------------
     # 1️⃣ BUILD MODEL
     # ------------------------------------------------------------
-    model = get_model(model_name, **(model_params or {}))
+    model : BaseEstimator = get_task_model(task, model_name, **(model_params or {}))
 
     # Capability check
     has_fit     = hasattr(model, "fit")
@@ -56,15 +61,22 @@ def train_eval_log(
     model.fit(X_train, y_train)
 
     # ------------------------------------------------------------
-    # 3️⃣ EVALUATE
+    # 3️⃣ Task-specific prediction & metrics
     # ------------------------------------------------------------
-    y_pred = model.predict(X_test)
-    mse = mean_squared_error(y_test, y_pred)
-    r2  = r2_score(y_test, y_pred)
+    evaluator = get_task_evaluator(task)
 
-    print(f"📊 Results →  MSE={mse:.6f}   R²={r2:.6f}")
+    y_pred, extra_pred_outputs = evaluator.predict(model, X_test)
+    metrics = evaluator.evaluate(y_test, y_pred, extra_pred_outputs)
+
     # ------------------------------------------------------------
-    # 3️⃣ PRINT COEFFICIENTS IF AVAILABLE
+    # 4️⃣ PRINT COEFFICIENTS IF AVAILABLE
+    # ------------------------------------------------------------
+    print("📊 Metrics:")
+    for k, v in metrics.items():
+        print(f"   {k} = {v:.6f}" if isinstance(v, float) else f"   {k} = {v}")
+
+    # ------------------------------------------------------------
+    # 5️⃣ PRINT COEFFICIENTS IF AVAILABLE
     # ------------------------------------------------------------
     has_coef = hasattr(model, "coef_")
     has_importance = hasattr(model, "feature_importances_")
@@ -81,13 +93,13 @@ def train_eval_log(
         print("\n⚠️ Model does not expose coefficients or feature_importances_")
 
     # ------------------------------------------------------------
-    # 4️⃣ LOG TO MLFLOW
+    # 6️⃣ LOG TO MLFLOW
     # ------------------------------------------------------------
     log_with_mlflow(
         run_name=model_name,
         model=model,
         params=model_params or {},
-        metrics={"mse": float(mse), "r2": float(r2)},
+        metrics=metrics,
         pre=pre,
         experiment=mlflow_experiment,
         col_manager=col_manager,
@@ -95,8 +107,5 @@ def train_eval_log(
     )
 
     return {
-        "metrics": {
-            "mse": mse,
-            "r2": r2,
-        }
+        "metrics": metrics
     }

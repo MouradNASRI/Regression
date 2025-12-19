@@ -32,6 +32,7 @@ def count_param_combinations(param_grid: Dict[str, list[Any]]) -> int:
     return math.prod(lengths)
 
 def load_hparam_search_config(
+    task: str,
     name: str,
     model_name: Optional[str] = None,
 ) -> Dict[str, Any]:
@@ -39,9 +40,7 @@ def load_hparam_search_config(
     Load a hyperparameter search config.
 
     Supports grouped layout:
-        configs/hparam_search/<group>/<name>.yaml
-    and flat layout:
-        configs/hparam_search/<name>.yaml
+        configs/hparam_search/<task>/<group>/<name>.yml
 
     If model_name is provided, we use its group as default folder.
     """
@@ -49,21 +48,13 @@ def load_hparam_search_config(
 
     # 1) If model_name is provided, we can infer group
     if model_name is not None:
-        group = get_model_group(model_name)
+        group = get_model_group(task, model_name)
         if group is not None:
             grouped_path = os.path.join(
-                BASE_DIR, "configs", "hparam_search", group, f"{name}.yml"
+                BASE_DIR, "configs", "hparam_search", task, group, f"{name}.yml"
             )
             if os.path.exists(grouped_path):
                 search_cfg_path = grouped_path
-
-    # 2) Fallback: flat layout
-    if search_cfg_path is None:
-        flat_path = os.path.join(
-            BASE_DIR, "configs", "hparam_search", f"{name}.yml"
-        )
-        if os.path.exists(flat_path):
-            search_cfg_path = flat_path
 
     if search_cfg_path is None:
         raise FileNotFoundError(
@@ -118,6 +109,7 @@ def run_hparam_search(
     cli_model_params: Dict[str, Any] | None = None,
     cli_model_name: str | None = None,
     mlflow_experiment: str | None = None,
+    task: str | None = None,
 ) -> Dict[str, Any]:
     """
     Run a hyperparameter grid search on top of `train_eval_log`.
@@ -248,6 +240,7 @@ def run_hparam_search(
             y_test=y_test,
             pre=pre,
             mlflow_experiment=mlflow_experiment,
+            task=task
         )
 
         # We assume train_eval_log returns {"metrics": {...}, ...}

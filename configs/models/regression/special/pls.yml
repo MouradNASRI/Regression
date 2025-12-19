@@ -1,0 +1,29 @@
+# configs/models/special/pls.yaml
+
+model:
+  name: "pls_regression"
+  library: "sklearn"
+  type: "pls"
+  task: "regression" 
+  params:
+    # PLSRegression(**params)
+    n_components: 2      # number of latent components
+    scale: false         # we rely on the external preprocessing scaler
+    max_iter: 500
+    tol: 0.000001
+    copy: true
+
+preprocessing:
+  # PLS needs scaled features to work well
+  scale_numeric: true
+
+collinearity:
+  # PLS is specifically built to handle multicollinearity
+  # so we can skip Pearson/VIF/SVD to keep all info.
+  enabled: false
+
+mlflow:
+  log_collinearity_diagnostics: false
+  log_vif_table: false
+  log_correlation_heatmap: false
+  log_svd_spectrum: false

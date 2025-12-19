@@ -68,10 +68,14 @@ def build_parser():
     p.add_argument("--autolog", action="store_true", help="use mlflow.sklearn.autolog (metrics/params only)")
     p.add_argument("--registered_model_name", type=str, default=None, help="optional registry name (not used here unless you add model registry calls)")
     p.add_argument("--hparam_search", type=str, default=None, help="Name of a hyperparameter search config under configs/hparam_search/")
+    p.add_argument("--target", type=str, default=None, help="Override target column name (otherwise use dataset config default).",)
+    p.add_argument("--task", type=str, choices=["regression", "classification"], required=True, help="Type of ML task (e.g. regression, classification).",)
+
+
     return p
 
 
-def list_available_models():
+def list_available_models(task):
     """
     Print all registered models grouped by category and exit.
 
@@ -86,7 +90,7 @@ def list_available_models():
     import sys
 
     print("Available models by group:")
-    groups = list_models(by_group=True)
+    groups = list_models(task=task, by_group=True)
 
     for group_name, registry in groups.items():
         print(f"  [{group_name}] {', '.join(sorted(registry.keys()))}")

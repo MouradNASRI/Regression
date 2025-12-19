@@ -1,0 +1,20 @@
+model:
+  name: "isotonic_regression"
+  library: "sklearn"
+  type: "isotonic"
+  task: "regression" 
+  params:
+    increasing: true
+    out_of_bounds: "clip"
+
+preprocessing:
+  scale_numeric: false
+
+collinearity:
+  enabled: false
+
+mlflow:
+  log_collinearity_diagnostics: false
+  log_vif_table: false
+  log_correlation_heatmap: false
+  log_svd_spectrum: false

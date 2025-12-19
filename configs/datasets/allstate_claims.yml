@@ -1,0 +1,19 @@
+name: allstate_claims
+target: loss
+
+datetime_col: null
+time_split: false          # no need for temporal split
+drop_cols:
+  - "id"              
+keep_categoricals: true   # all numeric
+scale_numeric: true
+
+# No renaming needed, but you CAN simplify names:
+rename_cols: {}
+
+feature_engineering:
+  datetime: false
+  haversine: false
+  log_target: false
+
+spatial_cols: {}

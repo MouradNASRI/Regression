@@ -1,0 +1,32 @@
+model:
+  name: "logistic_regression"
+  library: "sklearn"
+  type: "linear"          # registry key you will call with --model linear
+  params:
+    # LogisticRegression(**params)
+    penalty: "l2"
+    C: 1.0
+    solver: "lbfgs"       # good default for L2
+    max_iter: 1000
+    fit_intercept: true
+    class_weight: null    # set to "balanced" if your classes are imbalanced
+    n_jobs: null          # lbfgs ignores n_jobs; keep null to avoid errors
+    random_state: 42
+
+preprocessing:
+  # Logistic regression typically benefits from scaling
+  scale_numeric: true
+
+collinearity:
+  enabled: true
+  mode: "manual"
+  pipeline: ["pearson"]
+
+  pearson:
+    abs_threshold: 0.99
+
+mlflow:
+  log_collinearity_diagnostics: true
+  log_vif_table: false
+  log_correlation_heatmap: false
+  log_svd_spectrum: false

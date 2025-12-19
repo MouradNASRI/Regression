@@ -1,0 +1,16 @@
+# configs/search/special/pls_baseline.yml
+
+name: "pls_baseline"
+model: "pls"
+metric: "mse"
+mode: "min"
+strategy: "grid"
+
+base_model_params:
+  scale: false
+  tol: 0.000001
+  copy: true
+
+params:
+  n_components: [1, 2, 3, 5]
+  max_iter: [200, 500]

@@ -1,0 +1,48 @@
+model:
+  name: "knn_regression"
+  library: "sklearn"
+  type: "knn"
+  task: "regression" 
+  params:
+    # KNeighborsRegressor(**params)
+    n_neighbors: 5
+    weights: "uniform"        # "uniform" or "distance"
+    algorithm: "auto"         # "auto","ball_tree","kd_tree","brute"
+    leaf_size: 30
+    p: 2                      # 1=Manhattan, 2=Euclidean
+    metric: "minkowski"       # can also be "euclidean","manhattan", etc.
+    metric_params: null
+    n_jobs: -1
+
+preprocessing:
+  # Distance-based method → MUST scale features
+  scale_numeric: true
+
+collinearity:
+  enabled: true
+  mode: "manual"
+
+  # KNN doesn't blow up with collinearity, but redundant features
+  # can distort distance. We keep a very gentle Pearson pass
+  # to drop only near-duplicate features.
+  pipeline: ["pearson"]
+
+  pearson:
+    abs_threshold: 0.99
+
+  vif:
+    threshold: 10.0
+    max_iter: 10
+
+  svd:
+    action: "warn"
+    tiny_singular_value_threshold: 1e-6
+
+  condition_number:
+    threshold: 30.0
+
+mlflow:
+  log_collinearity_diagnostics: true
+  log_vif_table: true
+  log_correlation_heatmap: false
+  log_svd_spectrum: false

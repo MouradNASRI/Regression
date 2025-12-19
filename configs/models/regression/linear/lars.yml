@@ -1,0 +1,45 @@
+model:
+  name: "lars_regression"
+  library: "sklearn"
+  type: "lars"
+  task: "regression" 
+  params:
+    # Lars(**params)
+    fit_intercept: true
+    verbose: false
+    precompute: "auto"     # True, False, or "auto"
+    n_nonzero_coefs: 500   # effectively "no limit" unless you want early stop
+    eps: 2.220446049250313e-16
+    # normalize: DEPRECATED in recent sklearn versions
+    # positive: false       # only in some versions
+    jitter: null
+    random_state: null
+
+collinearity:
+  enabled: true
+  mode: "manual"
+
+  pipeline: ["pearson"]
+
+  pearson:
+    abs_threshold: 0.99
+
+  vif:
+    threshold: 10.0
+    max_iter: 10
+
+  svd:
+    action: "warn"
+    tiny_singular_value_threshold: 1e-6
+
+preprocessing:
+  scale_numeric: true
+
+  condition_number:
+    threshold: 30.0
+
+mlflow:
+  log_collinearity_diagnostics: true
+  log_vif_table: true
+  log_correlation_heatmap: false
+  log_svd_spectrum: false

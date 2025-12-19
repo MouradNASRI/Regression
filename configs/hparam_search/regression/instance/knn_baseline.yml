@@ -1,0 +1,15 @@
+name: "knn_baseline"
+model: "knn"
+metric: "mse"
+mode: "min"
+strategy: "grid"
+
+base_model_params:
+  n_jobs: -1
+  metric: "minkowski"
+
+params:
+  n_neighbors: [3, 5, 10, 20]
+  weights: ["uniform", "distance"]
+  p: [1, 2]                      # 1 = L1, 2 = L2
+  algorithm: ["auto"]            # you can add "ball_tree","kd_tree","brute" later

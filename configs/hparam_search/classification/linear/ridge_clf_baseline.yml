@@ -1,0 +1,15 @@
+name: "ridge_baseline"
+model: "ridge"
+metric: "accuracy"
+mode: "max"
+strategy: "grid"
+
+base_model_params:
+  tol: 0.001
+  copy_X: true
+  random_state: 42
+
+params:
+  alpha: [0.1, 1.0, 10.0, 100.0]
+  fit_intercept: [true, false]
+  class_weight: [null, "balanced"]
