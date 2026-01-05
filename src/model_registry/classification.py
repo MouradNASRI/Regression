@@ -27,6 +27,7 @@ from src.models.classification.nn import NN_REGISTRY
 from src.models.classification.robust import ROBUST_REGISTRY
 from src.models.classification.special import SPECIAL_REGISTRY
 
+
 # ------------------------------------------------------------------
 # Group mapping
 # ------------------------------------------------------------------
@@ -57,18 +58,8 @@ MODEL_REGISTRY = {
 
 def get_model(name: str, **kwargs):
     """
-    Instantiate a classification model by short name.
-
-    Parameters
-    ----------
-    name : str
-        Short model name (e.g. "logreg", "rf", "svc").
-    **kwargs :
-        Parameters forwarded to the sklearn estimator constructor.
-
-    Returns
-    -------
-    model : sklearn estimator
+    Pattern A: model construction is handled by src.factories.spec_builder.build_from_spec.
+    This function is kept only for validation / backward compatibility.
     """
     key = name.lower()
     if key not in MODEL_REGISTRY:
@@ -76,7 +67,7 @@ def get_model(name: str, **kwargs):
             f"Unknown classification model '{name}'. "
             f"Available models: {sorted(MODEL_REGISTRY.keys())}"
         )
-    return MODEL_REGISTRY[key](**kwargs)
+    return MODEL_REGISTRY[key]  # class, not instance
 
 
 def list_models(by_group: bool = True):

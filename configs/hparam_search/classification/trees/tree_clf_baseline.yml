@@ -1,0 +1,16 @@
+name: "tree_clf_baseline"
+model: "tree_clf"
+
+metric: "accuracy"
+mode: "max"
+strategy: "grid"
+
+base_model_params:
+  random_state: 42
+
+params:
+  max_depth: [null, 3, 5, 10]
+  min_samples_split: [2, 5, 10]
+  min_samples_leaf: [1, 2, 5]
+  max_features: [null, "sqrt", "log2"]
+  class_weight: [null, "balanced"]

@@ -1,0 +1,28 @@
+model:
+  name: "ada_clf"
+  library: "sklearn"
+  type: "ada_clf"
+  params:
+    n_estimators: 50
+    learning_rate: 1.0
+    random_state: 42
+
+    # Important: build the base estimator in your factory
+    # and pass it as AdaBoostClassifier(estimator=...)
+    estimator:
+      type: "tree_clf"
+      params:
+        max_depth: 1
+        random_state: 42
+
+preprocessing:
+  scale_numeric: false
+
+collinearity:
+  enabled: false
+
+mlflow:
+  log_collinearity_diagnostics: false
+  log_vif_table: false
+  log_correlation_heatmap: false
+  log_svd_spectrum: false

@@ -1,0 +1,19 @@
+name: "extratrees_clf_baseline"
+model: "extratrees_clf"
+
+metric: "accuracy"
+mode: "max"
+strategy: "grid"
+
+base_model_params:
+  random_state: 42
+  n_jobs: -1
+
+params:
+  n_estimators: [200, 500]
+  max_depth: [null, 5, 10, 20]
+  min_samples_split: [2, 5, 10]
+  min_samples_leaf: [1, 2, 5]
+  max_features: ["sqrt", "log2", null]
+  bootstrap: [false, true]
+  class_weight: [null, "balanced"]

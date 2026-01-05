@@ -1,0 +1,17 @@
+name: "gboost_clf_baseline"
+model: "gboost_clf"
+
+metric: "accuracy"
+mode: "max"
+strategy: "grid"
+
+base_model_params:
+  random_state: 42
+
+params:
+  learning_rate: [0.03, 0.1, 0.3]
+  n_estimators: [100, 200, 500]
+  max_depth: [1, 2, 3]
+  subsample: [0.7, 1.0]
+  min_samples_leaf: [1, 2, 5]
+  max_features: [null, "sqrt", "log2"]

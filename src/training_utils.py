@@ -5,6 +5,7 @@ from sklearn.base import BaseEstimator
 from src.model_registry import get_model as get_task_model
 from src.mlflow_utils import log_with_mlflow
 from src.tasks.registry import get_task_evaluator
+from src.factories.spec_builder import build_from_spec
 
 
 def train_eval_log(
@@ -39,7 +40,15 @@ def train_eval_log(
     # ------------------------------------------------------------
     # 1️⃣ BUILD MODEL
     # ------------------------------------------------------------
-    model : BaseEstimator = get_task_model(task, model_name, **(model_params or {}))
+    # model : BaseEstimator = get_task_model(task, model_name, **(model_params or {}))
+    
+    # Pattern A: spec-driven construction
+    # model_name must exist in ESTIMATOR_CATALOG (as a "type" key)
+    spec = {
+        "type": model_name,
+        "params": (model_params or {}),
+    }
+    model: BaseEstimator = build_from_spec(spec)
 
     # Capability check
     has_fit     = hasattr(model, "fit")

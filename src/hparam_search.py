@@ -11,8 +11,10 @@ from .training_utils import train_eval_log
 import math
 
 from src.model_registry import get_model_group
+from src.utils.merge import deep_merge
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+
 
 def count_param_combinations(param_grid: Dict[str, list[Any]]) -> int:
     """
@@ -106,6 +108,7 @@ def run_hparam_search(
     X_test,
     y_test,
     pre=None,
+    model_cfg_params: Dict[str, Any] | None = None,
     cli_model_params: Dict[str, Any] | None = None,
     cli_model_name: str | None = None,
     mlflow_experiment: str | None = None,
@@ -177,13 +180,17 @@ def run_hparam_search(
         model_name = cfg_model_name
 
     # ----------------------------------------------------------------------
-    # 2. Build base model params (config + CLI overrides)
+    # 2. Build base model params (MODEL CFG + search cfg + CLI overrides)
     # ----------------------------------------------------------------------
-    base_model_params: Dict[str, Any] = dict(search_cfg.get("base_model_params", {}))
+    base_model_params: Dict[str, Any] = deep_merge(
+        model_cfg_params or {},                    # from model YAML (very important)
+        search_cfg.get("base_model_params", {})    # search-fixed defaults
+    )
+    #base_model_params: Dict[str, Any] = dict(search_cfg.get("base_model_params", {}))
 
-    # CLI overrides config defaults and is considered FIXED
+    # CLI overrides are fixed and should win over config defaults
     if cli_model_params:
-        base_model_params.update(cli_model_params)
+        base_model_params = deep_merge(base_model_params, cli_model_params)
 
     # ----------------------------------------------------------------------
     # 3. Build search space and ensure we don't override CLI-fixed params
@@ -221,13 +228,14 @@ def run_hparam_search(
         # Merged params for this trial:
         # - base_model_params: config + CLI (fixed)
         # - hp_update: only params that are allowed to be tuned
-        trial_params = {**base_model_params, **hp_update}
+        trial_params = deep_merge(base_model_params, hp_update)
         
         # Print experiment progress
-        print(
-            f"[{search_name}] Experiment {trial_idx} / {total_trials} "
-            f"→ params = {trial_params}"
-        )
+        print("************************************************************************************************")
+        print(f"[{search_name}] Experiment {trial_idx} / {total_trials} ")
+        print("************************************************************************************************")
+        print(f"→ params = {trial_params}")
+        print("************************************************************************************************")
 
         
 

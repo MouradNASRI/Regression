@@ -1,0 +1,16 @@
+name: "linearsvc_baseline"
+model: "linearsvc"
+metric: "accuracy"
+mode: "max"
+strategy: "grid"
+
+base_model_params:
+  tol: 0.0001
+  max_iter: 1000
+  random_state: 42
+
+params:
+  C: [0.01, 0.1, 1.0, 10.0]
+  loss: ["hinge", "squared_hinge"]
+  fit_intercept: [true, false]
+  class_weight: [null, "balanced"]

@@ -1,0 +1,19 @@
+name: "hgb_clf_baseline"
+model: "hgb_clf"
+
+metric: "accuracy"
+mode: "max"
+strategy: "grid"
+
+base_model_params:
+  random_state: 42
+  early_stopping: true
+  validation_fraction: 0.1
+  n_iter_no_change: 10
+
+params:
+  learning_rate: [0.03, 0.1, 0.3]
+  max_iter: [100, 200, 500]
+  max_leaf_nodes: [15, 31, 63]
+  min_samples_leaf: [5, 20, 50]
+  l2_regularization: [0.0, 0.1, 1.0]

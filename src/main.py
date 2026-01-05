@@ -18,6 +18,8 @@ from typing import Any, Dict
 
 import pandas as pd
 
+from src.utils.merge import deep_merge
+
 from src.cli_utils import build_parser, parse_kv, list_available_models
 from src.data_utils import load_data, load_dataset_config
 from src.mlflow_utils import load_and_init_mlflow
@@ -62,6 +64,7 @@ def main() -> None:
     #   - collinearity: enabled/mode/pipeline/pearson/vif/svd/condition_number
     #   - (optionally) mlflow settings specific to the model
     model_cfg: Dict[str, Any] = load_model_config(task, args.model)
+    model_cfg_params = model_cfg.get("model", {}).get("params", {}) or {}
 
     task = (
         args.task
@@ -184,6 +187,7 @@ def main() -> None:
             X_test=X_test,
             y_test=y_test,
             pre=pre,
+            model_cfg_params=model_cfg_params,
             cli_model_params=cli_model_params,
             cli_model_name=cli_model_name,
             mlflow_experiment=mlflow_experiment,
@@ -199,7 +203,9 @@ def main() -> None:
             print(f"  {k} = {v}")
 
     else:
+        mlflow_experiment = args.experiment
         # Single run (your old behaviour)
+        single_params = deep_merge(model_cfg_params, cli_model_params or {})
         train_eval_log(
             model_name=args.model,
             model_params=cli_model_params or {},

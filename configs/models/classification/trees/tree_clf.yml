@@ -1,0 +1,27 @@
+model:
+  name: "tree_clf"
+  library: "sklearn"
+  type: "tree_clf"        # must exist in ESTIMATOR_CATALOG
+  params:
+    criterion: "gini"     # or "entropy", "log_loss" (sklearn >= 1.1)
+    splitter: "best"
+    max_depth: null
+    min_samples_split: 2
+    min_samples_leaf: 1
+    max_features: null
+    class_weight: null
+    random_state: 42
+
+preprocessing:
+  # Trees do NOT require scaling
+  scale_numeric: false
+
+collinearity:
+  # Trees handle collinearity reasonably well
+  enabled: false
+
+mlflow:
+  log_collinearity_diagnostics: false
+  log_vif_table: false
+  log_correlation_heatmap: false
+  log_svd_spectrum: false

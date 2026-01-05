@@ -1,0 +1,13 @@
+name: "ada_clf_baseline"
+model: "ada_clf"
+metric: "accuracy"
+mode: "max"
+strategy: "grid"
+
+base_model_params:
+  random_state: 42
+
+params:
+  n_estimators: [50, 100, 200]
+  learning_rate: [0.01, 0.1, 1.0]
+  estimator__max_depth: [1, 2, 3]

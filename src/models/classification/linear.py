@@ -12,10 +12,13 @@ from sklearn.linear_model import (
     Perceptron,
 )
 
+from sklearn.svm import LinearSVC 
+
 LINEAR_REGISTRY = {
     "logreg": LogisticRegression,
     "sgd_clf": SGDClassifier,
     "ridge_clf": RidgeClassifier,
     "pa_clf": PassiveAggressiveClassifier,
     "perceptron": Perceptron,
+    "linearsvc": LinearSVC,
 }
